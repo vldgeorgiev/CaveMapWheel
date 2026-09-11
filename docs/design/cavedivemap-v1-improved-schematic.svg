@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1100" viewBox="0 0 1800 1100" role="img" aria-labelledby="title desc">
+  <title id="title">CaveDiveMap improved V1 optical wheel sensor schematic</title>
+  <desc id="desc">Electrical schematic for a Seeed XIAO nRF52840 with a transistor-switched green optical emitter on D1, a phototransistor receiver with switched bias on D2 and ADC input on D0, a protected one-cell lithium polymer battery, USB-C charging, and local decoupling.</desc>
+  <defs>
+    <style>
+      .wire { fill: none; stroke: #111; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .thin { fill: none; stroke: #111; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      .dash { fill: none; stroke: #444; stroke-width: 3; stroke-dasharray: 10 8; }
+      .device { fill: #fff; stroke: #111; stroke-width: 4; }
+      .panel { fill: #fafafa; stroke: #555; stroke-width: 2; rx: 12; }
+      .node { fill: #111; }
+      .title { font: 700 42px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #111; }
+      .subtitle { font: 400 22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #333; }
+      .section { font: 700 27px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #111; }
+      .label { font: 600 21px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #111; }
+      .text { font: 400 19px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #222; }
+      .small { font: 400 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #333; }
+      .pin { font: 600 18px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #111; }
+      .note { fill: #f3f7fa; stroke: #36566f; stroke-width: 2; rx: 10; }
+    </style>
+
+    <g id="ground">
+      <path class="wire" d="M0 0 V12 M-24 12 H24 M-16 22 H16 M-8 32 H8"/>
+    </g>
+
+    <g id="power3v3">
+      <path class="wire" d="M0 28 V0 M-12 12 L0 0 L12 12"/>
+      <text class="pin" x="0" y="52" text-anchor="middle">3V3</text>
+    </g>
+  </defs>
+
+  <rect width="1800" height="1100" fill="#fff"/>
+  <text class="title" x="900" y="58" text-anchor="middle">CaveDiveMap Optical Wheel Sensor — Improved V1.2</text>
+  <text class="subtitle" x="900" y="94" text-anchor="middle">Dry-PoC schematic · 2026-09-19 · external circuit unchanged; symbols and battery guidance corrected</text>
+
+  <!-- Section panels -->
+  <rect class="panel" x="45" y="125" width="955" height="380"/>
+  <rect class="panel" x="45" y="525" width="955" height="405"/>
+  <text class="section" x="75" y="166">OPTICAL EMITTER</text>
+  <text class="section" x="75" y="566">OPTICAL RECEIVER — SWITCHED BIAS</text>
+
+  <!-- XIAO module -->
+  <rect class="device" x="1050" y="145" width="420" height="785" rx="8"/>
+  <text class="section" x="1260" y="205" text-anchor="middle">U1</text>
+  <text class="section" x="1260" y="247" text-anchor="middle">Seeed XIAO nRF52840</text>
+  <text class="text" x="1260" y="280" text-anchor="middle">SKU 102010448</text>
+
+  <!-- U1 left pins -->
+  <circle class="node" cx="1050" cy="245" r="7"/>
+  <text class="pin" x="1075" y="252">3V3</text>
+  <circle class="node" cx="1050" cy="350" r="7"/>
+  <text class="pin" x="1075" y="357">D1 · EMITTER_ENABLE</text>
+  <circle class="node" cx="1050" cy="610" r="7"/>
+  <text class="pin" x="1075" y="617">D2 · SENSOR_BIAS</text>
+  <circle class="node" cx="1050" cy="700" r="7"/>
+  <text class="pin" x="1075" y="707">D0 / A0 · SENSOR_ADC</text>
+  <circle class="node" cx="1050" cy="855" r="7"/>
+  <text class="pin" x="1075" y="862">GND</text>
+  <path class="wire" d="M1050 855 H1015 V875"/>
+  <use href="#ground" transform="translate(1015 875)"/>
+
+  <!-- U1 right pins and power -->
+  <circle class="node" cx="1470" cy="315" r="7"/>
+  <text class="pin" x="1445" y="308" text-anchor="end">BAT+</text>
+  <circle class="node" cx="1470" cy="390" r="7"/>
+  <text class="pin" x="1445" y="383" text-anchor="end">BAT−</text>
+  <circle class="node" cx="1470" cy="535" r="7"/>
+  <text class="pin" x="1445" y="528" text-anchor="end">USB-C</text>
+
+  <!-- Internal control note -->
+  <rect class="note" x="1110" y="755" width="300" height="130"/>
+  <text class="label" x="1260" y="788" text-anchor="middle">BOARD-INTERNAL CONTROLS</text>
+  <text class="small" x="1130" y="820">P0.13: ≈50 mA charge setting</text>
+  <text class="small" x="1130" y="847">P0.14: hold LOW; see design §4.4</text>
+  <text class="small" x="1130" y="874">P0.31/AIN7: battery ADC</text>
+
+  <!-- Emitter 3V3 source -->
+  <use href="#power3v3" transform="translate(115 217)"/>
+  <path class="wire" d="M115 245 H205"/>
+
+  <!-- R1 horizontal zigzag -->
+  <path class="wire" d="M205 245 L225 225 L250 265 L275 225 L300 265 L325 225 L350 265 L370 245 H410"/>
+  <text class="label" x="288" y="205" text-anchor="middle">R1 100 Ω</text>
+
+  <!-- LED1 diode with polarity and light arrows -->
+  <path class="wire" d="M410 245 H435 M490 245 H545"/>
+  <polygon points="435,215 435,275 490,245" fill="none" stroke="#111" stroke-width="4"/>
+  <path class="wire" d="M490 213 V277"/>
+  <text class="small" x="431" y="300" text-anchor="middle">A</text>
+  <text class="small" x="493" y="300" text-anchor="middle">K</text>
+  <path class="thin" d="M452 205 l22 -22 M470 205 l22 -22"/>
+  <path d="M474 183 l-6 14 l-8 -8 z M492 183 l-6 14 l-8 -8 z" fill="#111"/>
+  <text class="label" x="465" y="330" text-anchor="middle">LED1 OSG58A5111A</text>
+  <text class="text" x="465" y="356" text-anchor="middle">525 nm green · verify pulse current</text>
+
+  <!-- Q1 NPN -->
+  <path class="wire" d="M545 245 H680 V267"/>
+  <circle class="device" cx="680" cy="325" r="62"/>
+  <path class="wire" d="M735 325 H710 M710 286 V364 M710 298 L680 270 M680 270 V245 M710 352 L680 380 M680 380 V420"/>
+  <polygon points="694,363 678,380 699,377" fill="#111"/>
+  <text class="small" x="652" y="270">C</text>
+  <text class="small" x="714" y="316">B</text>
+  <text class="small" x="652" y="388">E</text>
+  <text class="label" x="680" y="190" text-anchor="middle">Q1 BC547B</text>
+  <text class="text" x="680" y="216" text-anchor="middle">NPN low-side switch</text>
+  <text class="small" x="680" y="240" text-anchor="middle">Verify physical C/B/E order</text>
+  <use href="#ground" transform="translate(680 420)"/>
+
+  <!-- D1 and R2 -->
+  <path class="wire" d="M1050 350 H960"/>
+  <path class="wire" d="M960 350 L940 330 L915 370 L890 330 L865 370 L840 330 L815 370 L795 350 H760 V325 H735"/>
+  <text class="label" x="878" y="405" text-anchor="middle">R2 10 kΩ</text>
+
+  <!-- R4 base pulldown -->
+  <circle class="node" cx="735" cy="325" r="6"/>
+  <path class="wire" d="M735 325 V340 L715 360 L755 382 L715 404 L755 426 L735 446 V454"/>
+  <use href="#ground" transform="translate(735 454)"/>
+  <text class="label" x="470" y="430">R4 100 kΩ</text>
+  <text class="small" x="470" y="456">holds Q1 off during reset</text>
+
+  <!-- C1 local decoupling -->
+  <use href="#power3v3" transform="translate(930 147)"/>
+  <path class="wire" d="M930 175 V210"/>
+  <path class="wire" d="M900 210 H960 M900 226 H960"/>
+  <path class="wire" d="M930 226 V258"/>
+  <use href="#ground" transform="translate(930 258)"/>
+  <text class="label" x="930" y="310" text-anchor="middle">C1 100 nF</text>
+  <text class="small" x="930" y="334" text-anchor="middle">local 3V3 decoupling</text>
+
+  <!-- Receiver D2, R3 and node -->
+  <path class="wire" d="M1050 610 H890"/>
+  <path class="wire" d="M890 610 L870 590 L845 630 L820 590 L795 630 L770 590 L745 630 L725 610 H555"/>
+  <text class="label" x="808" y="570" text-anchor="middle">R3 10 kΩ</text>
+  <text class="small" x="808" y="655" text-anchor="middle">D2 HIGH only while sampling</text>
+  <circle class="node" cx="555" cy="610" r="8"/>
+  <text class="label" x="525" y="595" text-anchor="end">SENSOR_NODE</text>
+
+  <!-- D0 connection -->
+  <path class="wire" d="M1050 700 H555 V610"/>
+
+  <!-- Q2 phototransistor -->
+  <path class="wire" d="M555 610 V713"/>
+  <circle class="device" cx="555" cy="785" r="62"/>
+  <path class="wire" d="M555 713 V750 L535 770 M535 748 V822 M535 800 L555 820 V850"/>
+  <polygon points="555,820 541,815 550,806" fill="#111"/>
+  <path class="thin" d="M435 735 l55 28 M420 770 l55 28"/>
+  <path d="M490 763 l-15 1 l7 -13 z M475 798 l-15 1 l7 -13 z" fill="#111"/>
+  <text class="small" x="580" y="744">C</text>
+  <text class="small" x="580" y="825">E</text>
+  <text class="label" x="690" y="770">Q2 TEPT4400</text>
+  <text class="text" x="690" y="800">NPN phototransistor</text>
+  <text class="small" x="690" y="828">Verify physical C/E order</text>
+  <path class="wire" d="M555 850 V870"/>
+  <use href="#ground" transform="translate(555 870)"/>
+
+  <!-- Optical relationship note -->
+  <text class="small" x="760" y="865">OPTICAL PATH:</text>
+  <text class="small" x="760" y="890">LED1 and Q2 face each other</text>
+  <text class="small" x="760" y="915">across the wheel opening.</text>
+
+  <!-- Battery -->
+  <path class="wire" d="M1470 315 H1570"/>
+  <path class="wire" d="M1470 390 H1570"/>
+  <rect class="device" x="1570" y="245" width="185" height="220" rx="6"/>
+  <circle class="node" cx="1570" cy="315" r="7"/>
+  <circle class="node" cx="1570" cy="390" r="7"/>
+  <text class="section" x="1662" y="285" text-anchor="middle">B1</text>
+  <text class="label" x="1590" y="322">+</text>
+  <text class="label" x="1590" y="397">−</text>
+  <text class="text" x="1662" y="350" text-anchor="middle">Protected 1S LiPo</text>
+  <text class="text" x="1662" y="378" text-anchor="middle">3.7 V · 250 mAh</text>
+  <text class="small" x="1662" y="430" text-anchor="middle">AKY0384 / LP601730</text>
+
+  <!-- USB-C -->
+  <path class="wire" d="M1470 535 H1570"/>
+  <rect class="device" x="1570" y="495" width="185" height="105" rx="18"/>
+  <text class="section" x="1662" y="540" text-anchor="middle">USB-C</text>
+  <text class="small" x="1662" y="570" text-anchor="middle">program + charge</text>
+  <text class="small" x="1662" y="625" text-anchor="middle">DRY V1 USE ONLY</text>
+
+  <!-- Key behavior note -->
+  <rect class="note" x="1510" y="675" width="245" height="255"/>
+  <text class="label" x="1632" y="710" text-anchor="middle">REQUIRED GPIO STATES</text>
+  <text class="small" x="1530" y="748">BOOT / SHELF:</text>
+  <text class="small" x="1545" y="775">D1 LOW · LED off</text>
+  <text class="small" x="1545" y="802">D2 LOW · receiver off</text>
+  <text class="small" x="1530" y="840">SAMPLE:</text>
+  <text class="small" x="1545" y="867">D2 HIGH · bias enabled</text>
+  <text class="small" x="1545" y="894">D1 pulses HIGH briefly</text>
+
+  <!-- Footer / revision block -->
+  <rect class="device" x="45" y="965" width="1710" height="95"/>
+  <path class="thin" d="M1260 965 V1060 M1510 965 V1060"/>
+  <text class="label" x="70" y="997">ASSEMBLY:</text>
+  <text class="small" x="215" y="997">Verify A/K, C/B/E, C/E and battery polarity. All ground symbols share common GND.</text>
+  <text class="small" x="70" y="1028">Before battery connection: resolve P0.14 startup/idle and ADC acquisition; see design §4.4 and assembly guide.</text>
+  <text class="label" x="1385" y="1000" text-anchor="middle">REV V1.2</text>
+  <text class="small" x="1385" y="1030" text-anchor="middle">Dry proof of concept</text>
+  <text class="label" x="1632" y="1000" text-anchor="middle">2026-09-19</text>
+  <text class="small" x="1632" y="1030" text-anchor="middle">Canonical schematic</text>
+</svg>
